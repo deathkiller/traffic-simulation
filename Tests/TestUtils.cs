@@ -182,14 +182,20 @@ namespace TrafficSimulation.Tests
         public static void GetOpenCLDispatcherAndDevice(out OpenCLDispatcher dispatcher, out OpenCLDevice device)
         {
             dispatcher = new OpenCLDispatcher();
-
-            if (dispatcher.Devices.Count <= 1) {
-                Assert.Fail("OpenCL device is not present in this computer.");
+            
+            try {
+                if (dispatcher.Devices.Count <= 1) {
+                    Assert.Inconclusive("OpenCL device is not present in this computer.");
+                    device = null;
+                } else if (dispatcher.Devices.Count <= OpenCLDeviceIndex) {
+                    device = dispatcher.Devices[dispatcher.Devices.Count - 1];
+                } else {
+                    device = dispatcher.Devices[OpenCLDeviceIndex];
+                }
+            } catch {
+                // Cannot get list of available devices
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
                 device = null;
-            } else if (dispatcher.Devices.Count <= OpenCLDeviceIndex) {
-                device = dispatcher.Devices[dispatcher.Devices.Count - 1];
-            } else {
-                device = dispatcher.Devices[OpenCLDeviceIndex];
             }
         }
 
