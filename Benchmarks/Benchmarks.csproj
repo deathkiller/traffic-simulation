@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB5B8E03-C0EE-4B51-9543-91D7CD0DFA89}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Benchmarks</RootNamespace>
+    <AssemblyName>Benchmarks</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Benchmarks.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="CarFollowing\Large.cs" />
+    <Compile Include="CarFollowing\Medium.cs" />
+    <Compile Include="CarFollowing\Small.cs" />
+    <Compile Include="CarFollowing\VeryLarge.cs" />
+    <Compile Include="CellBased\Large.cs" />
+    <Compile Include="CellBased\Medium.cs" />
+    <Compile Include="CellBased\Small.cs" />
+    <Compile Include="CellBased\VeryLarge.cs" />
+    <Compile Include="BenchmarkUtils.cs" />
+    <Compile Include="NBench\BenchmarkContext.cs" />
+    <Compile Include="NBench\ByteConstants.cs" />
+    <Compile Include="NBench\Collection\Counters\CounterMetricCollector.cs" />
+    <Compile Include="NBench\Collection\Counters\CounterSelector.cs" />
+    <Compile Include="NBench\Collection\GarbageCollection\GcCollectionsPerGenerationCollector.cs" />
+    <Compile Include="NBench\Collection\GarbageCollection\GcCollectionsSelector.cs" />
+    <Compile Include="NBench\Collection\Memory\GcTotalMemoryCollector.cs" />
+    <Compile Include="NBench\Collection\Memory\TotalMemorySelector.cs" />
+    <Compile Include="NBench\Collection\MetricCollector.cs" />
+    <Compile Include="NBench\Collection\MetricNames.cs" />
+    <Compile Include="NBench\Collection\MetricsCollectorSelector.cs" />
+    <Compile Include="NBench\Collection\Timing\TimingCollector.cs" />
+    <Compile Include="NBench\Collection\Timing\TimingSelector.cs" />
+    <Compile Include="NBench\Counter.cs" />
+    <Compile Include="NBench\CounterMeasurementAttribute.cs" />
+    <Compile Include="NBench\GcMeasurementAttribute.cs" />
+    <Compile Include="NBench\IBenchmarkTrace.cs" />
+    <Compile Include="NBench\MeasurementAttribute.cs" />
+    <Compile Include="NBench\MemoryMeasurementAttribute.cs" />
+    <Compile Include="NBench\Metrics\BenchmarkRun.cs" />
+    <Compile Include="NBench\Metrics\Counters\CounterBenchmarkSetting.cs" />
+    <Compile Include="NBench\Metrics\Counters\CounterMeasurementConfigurator.cs" />
+    <Compile Include="NBench\Metrics\Counters\CounterMetricName.cs" />
+    <Compile Include="NBench\Metrics\Counters\CreateCounterBenchmarkSetting.cs" />
+    <Compile Include="NBench\Metrics\GarbageCollection\GcBenchmarkSetting.cs" />
+    <Compile Include="NBench\Metrics\GarbageCollection\GcMeasurementConfigurator.cs" />
+    <Compile Include="NBench\Metrics\GarbageCollection\GcMetricName.cs" />
+    <Compile Include="NBench\Metrics\MeasureBucket.cs" />
+    <Compile Include="NBench\Metrics\Memory\MemoryBenchmarkSetting.cs" />
+    <Compile Include="NBench\Metrics\Memory\MemoryMeasurementConfigurator.cs" />
+    <Compile Include="NBench\Metrics\Memory\MemoryMetricName.cs" />
+    <Compile Include="NBench\Metrics\MetricMeasurement.cs" />
+    <Compile Include="NBench\Metrics\MetricName.cs" />
+    <Compile Include="NBench\Metrics\Timing\TimingBenchmarkSetting.cs" />
+    <Compile Include="NBench\Metrics\Timing\TimingMeasurementConfigurator.cs" />
+    <Compile Include="NBench\Metrics\Timing\TimingMetricName.cs" />
+    <Compile Include="NBench\MustBe.cs" />
+    <Compile Include="NBench\NBenchException.cs" />
+    <Compile Include="NBench\PerformanceBenchmark.cs" />
+    <Compile Include="NBench\Properties\Friends.cs" />
+    <Compile Include="NBench\Reporting\AggregateMetrics.cs" />
+    <Compile Include="NBench\Reporting\BenchmarkFinalResults.cs" />
+    <Compile Include="NBench\Reporting\BenchmarkResults.cs" />
+    <Compile Include="NBench\Reporting\BenchmarkRunReport.cs" />
+    <Compile Include="NBench\Reporting\BenchmarkStat.cs" />
+    <Compile Include="NBench\Reporting\CompositeBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\IBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\MetricRunReport.cs" />
+    <Compile Include="NBench\Reporting\NoOpBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\Targets\ActionBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\Targets\ConsoleBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\Targets\MarkdownBenchmarkOutput.cs" />
+    <Compile Include="NBench\Reporting\TeamCityBenchmarkOutput.cs" />
+    <Compile Include="NBench\Sdk\ActionBenchmarkInvoker.cs" />
+    <Compile Include="NBench\Sdk\Assertion.cs" />
+    <Compile Include="NBench\Sdk\AssertionResult.cs" />
+    <Compile Include="NBench\Sdk\AssertionType.cs" />
+    <Compile Include="NBench\Sdk\Benchmark.cs" />
+    <Compile Include="NBench\Sdk\BenchmarkBuilder.cs" />
+    <Compile Include="NBench\Sdk\BenchmarkConstants.cs" />
+    <Compile Include="NBench\Sdk\BenchmarkSettings.cs" />
+    <Compile Include="NBench\Sdk\Compiler\Assemblies\AssemblyRuntimeLoader.cs" />
+    <Compile Include="NBench\Sdk\Compiler\Assemblies\IAssemblyLoader.cs" />
+    <Compile Include="NBench\Sdk\Compiler\Assemblies\NetCoreAssemblyRuntimeLoader.cs" />
+    <Compile Include="NBench\Sdk\Compiler\Assemblies\NetFrameworkAssemblyLoader.cs" />
+    <Compile Include="NBench\Sdk\Compiler\IDiscovery.cs" />
+    <Compile Include="NBench\Sdk\Compiler\ReflectionDiscovery.Configurators.cs" />
+    <Compile Include="NBench\Sdk\Compiler\ReflectionDiscovery.cs" />
+    <Compile Include="NBench\Sdk\DefaultBenchmarkAssertionRunner.cs" />
+    <Compile Include="NBench\Sdk\DomainManager.cs" />
+    <Compile Include="NBench\Sdk\IBenchmarkAssertionRunner.cs" />
+    <Compile Include="NBench\Sdk\IBenchmarkInvoker.cs" />
+    <Compile Include="NBench\Sdk\IBenchmarkSetting.cs" />
+    <Compile Include="NBench\Sdk\IMeasurementConfigurator.cs" />
+    <Compile Include="NBench\Sdk\MeasurementConfigurator.cs" />
+    <Compile Include="NBench\Sdk\ReflectionBenchmarkInvoker.cs" />
+    <Compile Include="NBench\Sdk\RunnerSettings.cs" />
+    <Compile Include="NBench\Sdk\TestPackage.cs" />
+    <Compile Include="NBench\Sdk\TestRunner.cs" />
+    <Compile Include="NBench\Sdk\WarmupData.cs" />
+    <Compile Include="NBench\Sys\SysInfo.cs" />
+    <Compile Include="NBench\TimingMeasurementAttribute.cs" />
+    <Compile Include="NBench\Tracing\BenchmarkOutputTrace.cs" />
+    <Compile Include="NBench\Tracing\NoOpBenchmarkTrace.cs" />
+    <Compile Include="NBench\Tracing\TraceEvent.cs" />
+    <Compile Include="NBench\Tracing\TraceLevel.cs" />
+    <Compile Include="NBench\Util\AtomicCounter.cs" />
+    <Compile Include="NBench\Util\FileNameGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrafficSimulation\TrafficSimulation.csproj">
+      <Project>{028b149a-a1c0-4d00-80b0-be217a0624b1}</Project>
+      <Name>TrafficSimulation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

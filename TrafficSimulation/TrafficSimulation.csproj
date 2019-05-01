@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{028B149A-A1C0-4D00-80B0-BE217A0624B1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TrafficSimulation</RootNamespace>
+    <AssemblyName>TrafficSimulation</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TrafficSimulation.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NOpenCL">
+      <HintPath>..\NOpenCL\NOpenCL.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\TrafficView.CarFollowing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TrafficView.CellBased.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utils\UI.cs" />
+    <Compile Include="Simulations\CarFollowing\CarFollowingSim.cs" />
+    <Compile Include="Simulations\CarFollowing\CarFollowingSim.Generator.cs" />
+    <Compile Include="Simulations\CarFollowing\CarFollowingSim.OpenCL.cs" />
+    <Compile Include="Simulations\CellBased\CellBasedSim.Generator.cs" />
+    <Compile Include="Simulations\SimulationBase.cs" />
+    <Compile Include="Simulations\SimulationFlags.cs" />
+    <Compile Include="Simulations\SimulationType.cs" />
+    <Compile Include="Utils\OpenCLBuffer.cs" />
+    <Compile Include="Utils\OpenCLDevice.cs" />
+    <Compile Include="Utils\Disposable.cs" />
+    <Compile Include="Utils\OpenCLKernel.cs" />
+    <Compile Include="Utils\OpenCLKernelSet.cs" />
+    <Compile Include="Utils\OpenCLDispatcher.cs" />
+    <Compile Include="Utils\OpenCLException.cs" />
+    <Compile Include="Windows\CreateNewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\CreateNewDialog.Designer.cs">
+      <DependentUpon>CreateNewDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="App.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulations\CellBased\CellBasedSim.cs" />
+    <Compile Include="Simulations\CellBased\CellBasedSim.OpenCL.cs" />
+    <Compile Include="Controls\TrafficView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Windows\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ProgressDialog.Designer.cs">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Windows\CreateNewDialog.resx">
+      <DependentUpon>CreateNewDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Kernels\CellBasedSim.cl" />
+    <EmbeddedResource Include="Windows\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EmbeddedResource Include="Kernels\CarFollowingSim.cl" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
