@@ -15,7 +15,6 @@
 
 [![Build Status](https://img.shields.io/appveyor/ci/deathkiller/traffic-simulation.svg?logo=visual-studio-code&logoColor=ffffff)](https://ci.appveyor.com/project/deathkiller/traffic-simulation)
 [![Tests](https://img.shields.io/appveyor/tests/deathkiller/traffic-simulation.svg?compact_message)](https://ci.appveyor.com/project/deathkiller/traffic-simulation/build/tests)
-[![Coverage](https://img.shields.io/codecov/c/github/deathkiller/traffic-simulation.svg)](https://codecov.io/gh/deathkiller/traffic-simulation)
 [![Code Quality](https://img.shields.io/codacy/grade/374e7485fe0c42d4924fe4a2c151cf3a.svg)](https://www.codacy.com/app/deathkiller/traffic-simulation)
 [![License](https://img.shields.io/github/license/deathkiller/traffic-simulation.svg)](https://github.com/deathkiller/traffic-simulation/blob/master/LICENSE)
 [![Lines of Code](https://img.shields.io/badge/lines%20of%20code-15k-blue.svg)](https://github.com/deathkiller/traffic-simulation/graphs/code-frequency)

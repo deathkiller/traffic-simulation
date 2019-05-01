@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TrafficSimulation.Utils.Tests
@@ -27,7 +28,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
         {
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 1);
@@ -44,7 +51,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
         {
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
 
@@ -62,7 +75,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
         {
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
 
@@ -86,7 +105,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
         {
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -107,7 +132,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
         {
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -129,7 +160,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
 
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -168,7 +205,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
 
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -210,7 +253,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
 
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -258,7 +307,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
 
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
@@ -303,7 +358,13 @@ void kernel compute_multiply_add(global int* a, global int* b, const int c, glob
 
             OpenCLDispatcher dispatcher = new OpenCLDispatcher();
 
-            var devices = dispatcher.Devices;
+            IReadOnlyList<OpenCLDevice> devices;
+            try {
+                devices = dispatcher.Devices;
+            } catch {
+                Assert.Inconclusive("Cannot get list of OpenCL devices in this computer.");
+                return;
+            }
 
             Assert.IsNotNull(devices);
             Assert.IsTrue(devices.Count >= 2);
