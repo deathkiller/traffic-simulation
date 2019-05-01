@@ -13,7 +13,7 @@ namespace TrafficSimulation.Utils
         private NOpenCL.Kernel kernel;
 
         private int currentArg;
-        private List<OpenCLBuffer> boundBuffers;
+        private List<OpenCLBuffer> createdBuffers;
 
 #if ENABLE_PROFILING
         private static System.Diagnostics.Stopwatch profilingStopwatch;
@@ -28,7 +28,7 @@ namespace TrafficSimulation.Utils
             }
 
             this.currentArg = 0;
-            this.boundBuffers = new List<OpenCLBuffer>();
+            this.createdBuffers = new List<OpenCLBuffer>();
 
 #if ENABLE_PROFILING
             if (profilingStopwatch == null) {
@@ -54,7 +54,7 @@ namespace TrafficSimulation.Utils
                     size,
                     new IntPtr(ptr));
 
-                boundBuffers.Add(new OpenCLBuffer {
+                createdBuffers.Add(new OpenCLBuffer {
                     Ptr = new IntPtr(ptr),
                     Buffer = buffer,
                     OwnerDevice = kernelSet.OwnerDevice
@@ -77,8 +77,6 @@ namespace TrafficSimulation.Utils
         public unsafe OpenCLKernel BindBuffer(OpenCLBuffer buffer)
         {
             try {
-                //boundBuffers.Add(buffer);
-
                 kernel.Arguments[currentArg].SetValue(buffer.Buffer);
                 currentArg++;
 
@@ -186,17 +184,17 @@ namespace TrafficSimulation.Utils
 
             commandQueue.Finish();
 
-            // Dispose all bound buffers
-            for (int i = 0; i < boundBuffers.Count; i++) {
-                if (boundBuffers[i].HasOwnership) {
+            // Dispose all created buffers
+            for (int i = 0; i < createdBuffers.Count; i++) {
+                if (createdBuffers[i].HasOwnership) {
                     continue;
                 }
 
-                boundBuffers[i].Synchronize();
-                boundBuffers[i].Dispose();
+                createdBuffers[i].Synchronize();
+                createdBuffers[i].Dispose();
             }
 
-            boundBuffers.Clear();
+            createdBuffers.Clear();
 
             currentArg = 0;
         }

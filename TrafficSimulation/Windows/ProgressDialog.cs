@@ -23,8 +23,9 @@ namespace TrafficSimulation.Windows
             get { return mainInstruction; }
             set
             {
-                if (mainInstruction == value)
+                if (mainInstruction == value) {
                     return;
+                }
 
                 mainInstruction = value;
                 Invalidate();

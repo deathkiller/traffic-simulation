@@ -154,7 +154,11 @@ namespace TrafficSimulation.Simulations.CarFollowing
                     dst.P4 = (float)(p4 / pTotal);
                     dst.P5 = (float)(p5 / pTotal);
                 } else {
-                    dst.P1 = dst.P2 = dst.P3 = dst.P4 = dst.P5 = 0;
+                    dst.P1 = 0;
+                    dst.P2 = 0;
+                    dst.P3 = 0;
+                    dst.P4 = 0;
+                    dst.P5 = 0;
                 }
 
                 dst.JunctionIndex = src.JunctionIndex;

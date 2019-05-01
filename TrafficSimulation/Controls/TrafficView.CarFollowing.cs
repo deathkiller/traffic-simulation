@@ -62,11 +62,17 @@ namespace TrafficSimulation.Controls
                 DrawLane(e, simulation, cUi, c.T5, isSelected);
 
                 int nextIdx = Cell.None;
-                if (c.T1 != Cell.None) nextIdx = c.T1;
-                else if (c.T2 != Cell.None) nextIdx = c.T2;
-                else if (c.T3 != Cell.None) nextIdx = c.T3;
-                else if (c.T4 != Cell.None) nextIdx = c.T4;
-                else if (c.T5 != Cell.None) nextIdx = c.T5;
+                if (c.T1 != Cell.None) {
+                    nextIdx = c.T1;
+                } else if (c.T2 != Cell.None) {
+                    nextIdx = c.T2;
+                } else if (c.T3 != Cell.None) {
+                    nextIdx = c.T3;
+                } else if (c.T4 != Cell.None) {
+                    nextIdx = c.T4;
+                } else if (c.T5 != Cell.None) {
+                    nextIdx = c.T5;
+                }
 
                 if (nextIdx == Cell.None) {
                     continue;
@@ -206,7 +212,7 @@ namespace TrafficSimulation.Controls
                 return;
             }
 
-            carPens = new Pen[] {
+            carPens = new[] {
                 new Pen(Color.Green, PenSize),
                 new Pen(Color.DarkCyan, PenSize),
                 new Pen(Color.Orange, PenSize),

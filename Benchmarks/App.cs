@@ -63,7 +63,7 @@ namespace Benchmarks
                 }
             }
 
-            return new string[] { "*." + simType + "." + sizeType + "+" + runType };
+            return new[] { "*." + simType + "." + sizeType + "+" + runType };
         }
 
         /// <summary>

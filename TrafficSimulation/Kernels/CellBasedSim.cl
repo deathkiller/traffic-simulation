@@ -41,7 +41,6 @@ typedef struct __attribute__((aligned(4))) Car_t
     int Position;
     int Speed;
     int Size;
-    //int NextTarget;
 } Car;
 
 

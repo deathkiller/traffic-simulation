@@ -62,12 +62,10 @@ namespace TrafficSimulation.Controls
                 }
 
                 if (cToCar.CarIndex != Cell.None) {
-                    ref Car car = ref current.Cars[cToCar.CarIndex];
                     ref CarUi carUi = ref current.CarsUi[cToCar.CarIndex];
 
                     Brush brush;
-                    switch (carUi.Color)
-                    {
+                    switch (carUi.Color) {
                         default:
                         case 0: brush = Brushes.Green; break;
                         case 1: brush = Brushes.DarkCyan; break;

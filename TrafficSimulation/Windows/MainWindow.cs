@@ -125,8 +125,7 @@ namespace TrafficSimulation.Windows
                 if (deviceIndex == 0) {
                     simulation.DoStepReference();
                 } else {
-                    //simulation.DoStepOpenCL(dispatcher, dispatcher.Devices[deviceIndex]);
-                    simulation.DoBatchOpenCL(dispatcher, dispatcher.Devices[deviceIndex],1);
+                    simulation.DoStepOpenCL(dispatcher, dispatcher.Devices[deviceIndex]);
                 }
 
                 return simulation.CheckIntegrity();

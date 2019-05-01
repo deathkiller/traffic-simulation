@@ -7,6 +7,9 @@ using System.Windows.Forms.VisualStyles;
 
 namespace TrafficSimulation.Utils
 {
+    /// <summary>
+    /// Contains helper methods for UI
+    /// </summary>
     public class UI
     {
         /// <summary>

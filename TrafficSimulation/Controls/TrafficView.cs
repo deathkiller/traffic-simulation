@@ -40,7 +40,9 @@ namespace TrafficSimulation.Controls
             }
             set
             {
-                if (simulation == value) return;
+                if (simulation == value) {
+                    return;
+                }
 
                 selectedJunction = -1;
                 simulation = value;
@@ -60,7 +62,9 @@ namespace TrafficSimulation.Controls
             }
             set
             {
-                if (scaleFactor == value) return;
+                if (scaleFactor == value) {
+                    return;
+                }
 
                 scaleFactor = value;
                 Invalidate();

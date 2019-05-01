@@ -588,13 +588,13 @@ namespace TrafficSimulation.Simulations.CarFollowing
             float rand = random[randomIndex % randomLength];
 
             float current = c.P1;
-            if (rand <= current && c.T1 != Cell.None) return c.T1;
+            if (rand <= current && c.T1 != Cell.None) { return c.T1; }
             current += c.P2;
-            if (rand <= current && c.T2 != Cell.None) return c.T2;
+            if (rand <= current && c.T2 != Cell.None) { return c.T2; }
             current += c.P3;
-            if (rand <= current && c.T3 != Cell.None) return c.T3;
+            if (rand <= current && c.T3 != Cell.None) { return c.T3; }
             current += c.P4;
-            if (rand <= current && c.T4 != Cell.None) return c.T4;
+            if (rand <= current && c.T4 != Cell.None) { return c.T4; }
 
             return c.T5;
         }
