@@ -157,7 +157,7 @@ namespace TrafficSimulation.Utils
         /// Initialize specified OpenCL device
         /// </summary>
         /// <param name="device">Device</param>
-        private void InitializeDevice(OpenCLDevice device)
+        private static void InitializeDevice(OpenCLDevice device)
         {
             if (device.Context != null) {
                 return;
@@ -195,7 +195,7 @@ namespace TrafficSimulation.Utils
         /// </summary>
         /// <param name="filename">Program filename</param>
         /// <returns>Program source</returns>
-        private string LoadSourceFromResources(string filename)
+        private static string LoadSourceFromResources(string filename)
         {
             Assembly a = Assembly.GetExecutingAssembly();
             string[] resources = a.GetManifestResourceNames();

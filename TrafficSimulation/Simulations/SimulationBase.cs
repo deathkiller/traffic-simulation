@@ -37,7 +37,7 @@ namespace TrafficSimulation.Simulations
         /// <param name="distance">Distance between junctions</param>
         /// <param name="junctionsX">Number of junctions on X-axis</param>
         /// <param name="junctionsY">Number of junctions on Y-axis</param>
-        /// <param name="carCount">Current number of cars</param>
+        /// <param name="carCount">Initial number of cars</param>
         /// <param name="maxCarCount">Max. number of cars</param>
         /// <param name="generatorProbability">Probability of car generation</param>
         /// <param name="randomSeed">Random seed (optimal)</param>

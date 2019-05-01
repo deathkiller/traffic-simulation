@@ -27,7 +27,9 @@ namespace TrafficSimulation.Simulations.CellBased
                 r = new Random(randomSeed.Value);
             }
 
-            maxCarCount = Math.Max(maxCarCount, carCount);
+            if (maxCarCount < carCount) {
+                maxCarCount = carCount;
+            }
 
             List<CellRef> cells = new List<CellRef>();
 
@@ -106,69 +108,11 @@ namespace TrafficSimulation.Simulations.CellBased
             }
 
             // Create cars
-            Car[] cars = new Car[maxCarCount];
-            CarUi[] carsUi = new CarUi[maxCarCount];
-            {
-                int i = 0;
+            Car[] cars;
+            CarUi[] carsUi;
+            CreateCars(cells, carCount, maxCarCount, r, out cars, out carsUi);
 
-                // Spawn cars
-                for (; i < carCount; i++) {
-                    int carSize = r.Next(1, 6 + 1);
-                    int[] carCells = new int[carSize];
-
-                    bool wasPlaced = false;
-
-                    for (int tryCurrent = 0; tryCurrent < 1000; tryCurrent++) {
-                        int cellIndex = r.Next(0, cells.Count);
-
-                        wasPlaced = true;
-                        for (int j = 0; j < carSize; j++) {
-                            CellRef c = cells[cellIndex];
-                            if (c.JunctionIndex != Cell.None || c.T1 == Cell.None || c.CarIndex != Cell.None) {
-                                wasPlaced = false;
-                                break;
-                            }
-
-                            carCells[j] = cellIndex;
-
-                            cellIndex = c.T1;
-                        }
-
-                        if (wasPlaced) {
-                            ref Car car = ref cars[i];
-                            car.Position = carCells[0];
-                            car.Speed = 0;
-                            car.Size = carSize;
-
-                            ref CarUi carUi = ref carsUi[i];
-                            carUi.Color = r.Next(0, 10);
-
-                            for (int j = 0; j < carSize; j++) {
-                                CellRef c = cells[carCells[j]];
-                                c.CarIndex = i;
-                            }
-
-                            break;
-                        }
-                    }
-
-                    if (!wasPlaced) {
-                        break;
-                    }
-                }
-
-                // Initialize non-spawned cars
-                for (; i < maxCarCount; i++) {
-                    ref Car car = ref cars[i];
-                    car.Position = Cell.None;
-                    car.Speed = 0;
-                    car.Size = 0;
-
-                    ref CarUi carUi = ref carsUi[i];
-                    carUi.Color = r.Next(0, 10);
-                }
-            }
-
+            // Create initial state
             Current = new SimulationData();
             Current.Junctions = junctions;
             Current.Generators = generators.ToArray();
@@ -221,6 +165,78 @@ namespace TrafficSimulation.Simulations.CellBased
             LastTimeGenerators = TimeSpan.Zero;
             ActiveCarsCount = 0;
             WaitingCarsCount = 0;
+        }
+
+        /// <summary>
+        /// Creates cars in generated simulation
+        /// </summary>
+        /// <param name="cells">Cells</param>
+        /// <param name="carCount">Initial number of cars</param>
+        /// <param name="maxCarCount">Max. number of cars</param>
+        /// <param name="r">Random generator</param>
+        /// <param name="cars">Generated cars</param>
+        /// <param name="carsUi">UI struct for generated cars</param>
+        private static void CreateCars(List<CellRef> cells, int carCount, int maxCarCount, Random r, out Car[] cars, out CarUi[] carsUi)
+        {
+            cars = new Car[maxCarCount];
+            carsUi = new CarUi[maxCarCount];
+
+            int i = 0;
+            for (; i < carCount; i++) {
+                int carSize = r.Next(1, 6 + 1);
+                int[] carCells = new int[carSize];
+
+                bool wasPlaced = false;
+
+                for (int tryCurrent = 0; tryCurrent < 1000; tryCurrent++) {
+                    int cellIndex = r.Next(0, cells.Count);
+
+                    wasPlaced = true;
+                    for (int j = 0; j < carSize; j++) {
+                        CellRef c = cells[cellIndex];
+                        if (c.JunctionIndex != Cell.None || c.T1 == Cell.None || c.CarIndex != Cell.None) {
+                            wasPlaced = false;
+                            break;
+                        }
+
+                        carCells[j] = cellIndex;
+
+                        cellIndex = c.T1;
+                    }
+
+                    if (wasPlaced) {
+                        ref Car car = ref cars[i];
+                        car.Position = carCells[0];
+                        car.Speed = 0;
+                        car.Size = carSize;
+
+                        ref CarUi carUi = ref carsUi[i];
+                        carUi.Color = r.Next(0, 10);
+
+                        for (int j = 0; j < carSize; j++) {
+                            CellRef c = cells[carCells[j]];
+                            c.CarIndex = i;
+                        }
+
+                        break;
+                    }
+                }
+
+                if (!wasPlaced) {
+                    break;
+                }
+            }
+
+            // Initialize non-spawned cars
+            for (; i < maxCarCount; i++) {
+                ref Car car = ref cars[i];
+                car.Position = Cell.None;
+                car.Speed = 0;
+                car.Size = 0;
+
+                ref CarUi carUi = ref carsUi[i];
+                carUi.Color = r.Next(0, 10);
+            }
         }
 
         /// <summary>

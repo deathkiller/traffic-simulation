@@ -259,7 +259,7 @@ namespace TrafficSimulation.Simulations.CarFollowing
         private int randomSeed = 1;
 
         private SimulationFlags flags;
-        private long currentStep = 0;
+        private long currentStep;
 
         public SimulationData Current;
 

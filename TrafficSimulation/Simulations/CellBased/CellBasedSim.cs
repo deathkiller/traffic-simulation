@@ -276,7 +276,7 @@ namespace TrafficSimulation.Simulations.CellBased
         private int randomSeed = 1;
 
         private SimulationFlags flags;
-        private long currentStep = 0;
+        private long currentStep;
 
         /// <inheritdoc />
         public override SimulationType CurrentType => SimulationType.CellBased;

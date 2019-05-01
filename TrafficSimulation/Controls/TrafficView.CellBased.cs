@@ -22,14 +22,25 @@ namespace TrafficSimulation.Controls
 
             ref SimulationData current = ref simulation.Current;
 
+            PaintCells(e, simulation, OverdrawSize, clientSize, current);
+
+            PaintJunctions(e, OverdrawSize, clientSize, current);
+
+            e.Graphics.Transform = oldTransform;
+
+            DrawStateText(e, simulation, current);
+        }
+
+        private void PaintCells(PaintEventArgs e, CellBasedSim simulation, int OverdrawSize, Size clientSize, SimulationData current)
+        {
             for (int i = 0; i < current.Cells.Length; i++) {
                 ref Cell c = ref current.Cells[i];
                 ref CellToCar cToCar = ref current.CellsToCar[i];
                 ref CellUi cUi = ref current.CellsUi[i];
 
                 Rectangle rect = new Rectangle(
-                            x + (cUi.X * dist) - (junctionSize / 4), y + (cUi.Y * dist) - (junctionSize / 4),
-                            junctionSize / 2 + 1, junctionSize / 2 + 1);
+                            offsetPxX + (cUi.X * CellDistance) - (JunctionSize / 4), offsetPxY + (cUi.Y * CellDistance) - (JunctionSize / 4),
+                            JunctionSize / 2 + 1, JunctionSize / 2 + 1);
 
                 if (rect.X < -OverdrawSize / scaleFactor ||
                     rect.Y < -OverdrawSize / scaleFactor ||
@@ -46,12 +57,17 @@ namespace TrafficSimulation.Controls
                 DrawLane(e, simulation, cUi, c.T4, isSelected);
                 DrawLane(e, simulation, cUi, c.T5, isSelected);
 
+                if (scaleFactor < 0.2f) {
+                    continue;
+                }
+
                 if (cToCar.CarIndex != Cell.None) {
                     ref Car car = ref current.Cars[cToCar.CarIndex];
                     ref CarUi carUi = ref current.CarsUi[cToCar.CarIndex];
 
                     Brush brush;
-                    switch (carUi.Color) {
+                    switch (carUi.Color)
+                    {
                         default:
                         case 0: brush = Brushes.Green; break;
                         case 1: brush = Brushes.DarkCyan; break;
@@ -72,6 +88,13 @@ namespace TrafficSimulation.Controls
                     }
                 }
             }
+        }
+
+        private void PaintJunctions(PaintEventArgs e, int OverdrawSize, Size clientSize, SimulationData current)
+        {
+            if (scaleFactor < 0.2f) {
+                return;
+            }
 
             for (int i = 0; i < current.Junctions.Length; i++) {
                 ref Junction j = ref current.Junctions[i];
@@ -79,8 +102,8 @@ namespace TrafficSimulation.Controls
                 ref CellUi cUi = ref current.CellsUi[j.CellIndex];
 
                 Rectangle rect = new Rectangle(
-                        x + (cUi.X * dist) - (junctionSize / 2), y + (cUi.Y * dist) - (junctionSize / 2),
-                        junctionSize, junctionSize);
+                        offsetPxX + (cUi.X * CellDistance) - (JunctionSize / 2), offsetPxY + (cUi.Y * CellDistance) - (JunctionSize / 2),
+                        JunctionSize, JunctionSize);
 
                 if (rect.X < -OverdrawSize / scaleFactor ||
                     rect.Y < -OverdrawSize / scaleFactor ||
@@ -92,10 +115,25 @@ namespace TrafficSimulation.Controls
                 e.Graphics.DrawRectangle(Pens.Black, rect);
 
             }
+        }
 
-            e.Graphics.Transform = oldTransform;
+        private void DrawLane(PaintEventArgs e, CellBasedSim simulation, CellUi cUi, int target, bool isSelected)
+        {
+            if (target == Cell.None) {
+                return;
+            }
 
-            // Draw text
+            Pen pen = (isSelected ? Pens.Red : Pens.Gray);
+
+            ref CellUi cUi2 = ref simulation.Current.CellsUi[target];
+
+            e.Graphics.DrawLine(pen,
+                offsetPxX + (cUi.X * CellDistance), offsetPxY + (cUi.Y * CellDistance),
+                offsetPxX + (cUi2.X * CellDistance), offsetPxY + (cUi2.Y * CellDistance));
+        }
+
+        private void DrawStateText(PaintEventArgs e, CellBasedSim simulation, SimulationData current)
+        {
             string text = simulation.ToString();
 
             if (selectedJunction != Cell.None) {
@@ -119,25 +157,10 @@ namespace TrafficSimulation.Controls
             TextRenderer.DrawText(e.Graphics, text, Font, new Point(TextX, TextY), Color.FromArgb(unchecked((int)0xff444444)));
         }
 
-        private void DrawLane(PaintEventArgs e, CellBasedSim simulation, CellUi cUi, int target, bool isSelected)
-        {
-            if (target == Cell.None) {
-                return;
-            }
-
-            Pen pen = (isSelected ? Pens.Red : Pens.Gray);
-
-            ref CellUi cUi2 = ref simulation.Current.CellsUi[target];
-
-            e.Graphics.DrawLine(pen,
-                x + (cUi.X * dist), y + (cUi.Y * dist),
-                x + (cUi2.X * dist), y + (cUi2.Y * dist));
-        }
-
         private void OnMouseDoubleClickCellBased(MouseEventArgs e, CellBasedSim simulation)
         {
-            int mx = (int)((e.X / scaleFactor - x) / dist);
-            int my = (int)((e.Y / scaleFactor - y) / dist);
+            int mx = (int)((e.X / scaleFactor - offsetPxX) / CellDistance);
+            int my = (int)((e.Y / scaleFactor - offsetPxY) / CellDistance);
 
             float nearestDistance = float.MaxValue;
             int nearestIndex = 0;

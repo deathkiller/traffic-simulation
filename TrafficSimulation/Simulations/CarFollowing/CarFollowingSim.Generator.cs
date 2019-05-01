@@ -17,7 +17,7 @@ namespace TrafficSimulation.Simulations.CarFollowing
             public float Length;
         }
 
-        private struct CarSortHelper
+        private struct CarSortHelperStruct
         {
             public int CarIndex;
             public float PositionInCell;
@@ -33,7 +33,9 @@ namespace TrafficSimulation.Simulations.CarFollowing
                 r = new Random(randomSeed.Value);
             }
 
-            maxCarCount = Math.Max(maxCarCount, carCount);
+            if (maxCarCount < carCount) {
+                maxCarCount = carCount;
+            }
 
             List<CellRef> cells = new List<CellRef>();
 
@@ -110,92 +112,13 @@ namespace TrafficSimulation.Simulations.CarFollowing
             }
 
             // Create cars
-            int[] cellsToCar = new int[distance * cells.Count];
-            for (int i = 0; i < cellsToCar.Length; i++) {
-                cellsToCar[i] = Cell.None;
-            }
-
-            Car[] cars = new Car[maxCarCount];
-            CarUi[] carsUi = new CarUi[maxCarCount];
-            {
-                int i = 0;
-                for (; i < carCount; i++) {
-                    int carSize = r.Next(1, 6 + 1);
-                    int[] carCells = new int[carSize];
-
-                    bool wasPlaced = false;
-
-                    for (int tryCurrent = 0; tryCurrent < 1000; tryCurrent++) {
-                        int cellIndex = r.Next(0, cells.Count);
-                        CellRef c = cells[cellIndex];
-                        if (c.Length == 0) {
-                            continue;
-                        }
-
-                        float positionInCell = r.Next(carSize, (int)c.Length);
-
-                        for (int j = 0; j < distance; j++) {
-                            if (cellsToCar[cellIndex * distance + j] == Cell.None) {
-                                cellsToCar[cellIndex * distance + j] = i;
-
-                                ref Car car = ref cars[i];
-                                car.Position = cellIndex;
-                                car.PositionInCell = positionInCell;
-                                car.Speed = 0;
-                                car.Size = carSize;
-
-                                ref CarUi carUi = ref carsUi[i];
-                                carUi.Color = r.Next(0, 10);
-
-                                wasPlaced = true;
-                                break;
-                            }
-                        }
-
-                        if (wasPlaced) {
-                            break;
-                        }
-                    }
-
-                    if (!wasPlaced) {
-                        break;
-                    }
-                }
-
-                // Initialize non-spawned cars
-                for (; i < maxCarCount; i++) {
-                    ref Car car = ref cars[i];
-                    car.Position = Cell.None;
-                    car.PositionInCell = 0;
-                    car.Speed = 0;
-                    car.Size = 0;
-
-                    ref CarUi carUi = ref carsUi[i];
-                    carUi.Color = r.Next(0, 10);
-                }
-            }
+            int[] cellsToCar;
+            Car[] cars;
+            CarUi[] carsUi;
+            CreateCars(cells, distance, carCount, maxCarCount, r, out cellsToCar, out cars, out carsUi);
 
             // Sort cars in every traffic lane, so first (leading) car in on index 0
-            CarSortHelper[] sortHelper = new CarSortHelper[distance];
-            for (int i = 0; i < cells.Count; i++) {
-                for (int j = 0; j < distance; j++) {
-                    int idx = i * distance + j;
-                    if (cellsToCar[idx] == Cell.None) {
-                        sortHelper[j].CarIndex = Cell.None;
-                        sortHelper[j].PositionInCell = float.MinValue;
-                    } else {
-                        sortHelper[j].CarIndex = cellsToCar[idx];
-                        sortHelper[j].PositionInCell = cars[cellsToCar[idx]].PositionInCell;
-                    }
-                }
-
-                Array.Sort(sortHelper, (a, b) => b.PositionInCell.CompareTo(a.PositionInCell));
-
-                for (int j = 0; j < distance; j++) {
-                    int idx = i * distance + j;
-                    cellsToCar[idx] = sortHelper[j].CarIndex;
-                }
-            }
+            SortCarsInCell(cells, cellsToCar, cars, distance);
 
             Current = new SimulationData();
             Current.Junctions = junctions;
@@ -205,7 +128,7 @@ namespace TrafficSimulation.Simulations.CarFollowing
             Current.CellsToCar = cellsToCar;
             Current.CarsPerCell = distance;
 
-            // Convert cells to structs
+            // Create initial state
             Current.Cells = new Cell[cells.Count];
             Current.CellsUi = new CellUi[cells.Count];
             for (int i = 0; i < cells.Count; i++) {
@@ -248,6 +171,114 @@ namespace TrafficSimulation.Simulations.CarFollowing
             LastTimeGenerators = TimeSpan.Zero;
             ActiveCarsCount = 0;
             WaitingCarsCount = 0;
+        }
+
+        /// <summary>
+        /// Creates cars in generated simulation
+        /// </summary>
+        /// <param name="cells">Cells</param>
+        /// <param name="distance">Distance between junctions</param>
+        /// <param name="carCount">Initial number of cars</param>
+        /// <param name="maxCarCount">Max. number of cars</param>
+        /// <param name="r">Random generator</param>
+        /// <param name="cellsToCar">Generated cells to car</param>
+        /// <param name="cars">Generated cars</param>
+        /// <param name="carsUi">UI struct for generated cars</param>
+        private static void CreateCars(List<CellRef> cells, int distance, int carCount, int maxCarCount, Random r, out int[] cellsToCar, out Car[] cars, out CarUi[] carsUi)
+        {
+            cellsToCar = new int[distance * cells.Count];
+            for (int j = 0; j < cellsToCar.Length; j++) {
+                cellsToCar[j] = Cell.None;
+            }
+
+            cars = new Car[maxCarCount];
+            carsUi = new CarUi[maxCarCount];
+
+            int i = 0;
+            for (; i < carCount; i++) {
+                int carSize = r.Next(1, 6 + 1);
+
+                bool wasPlaced = false;
+
+                for (int tryCurrent = 0; tryCurrent < 1000; tryCurrent++) {
+                    int cellIndex = r.Next(0, cells.Count);
+                    CellRef c = cells[cellIndex];
+                    if (c.Length == 0) {
+                        continue;
+                    }
+
+                    float positionInCell = r.Next(carSize, (int)c.Length);
+
+                    for (int j = 0; j < distance; j++) {
+                        if (cellsToCar[cellIndex * distance + j] == Cell.None) {
+                            cellsToCar[cellIndex * distance + j] = i;
+
+                            ref Car car = ref cars[i];
+                            car.Position = cellIndex;
+                            car.PositionInCell = positionInCell;
+                            car.Speed = 0;
+                            car.Size = carSize;
+
+                            ref CarUi carUi = ref carsUi[i];
+                            carUi.Color = r.Next(0, 10);
+
+                            wasPlaced = true;
+                            break;
+                        }
+                    }
+
+                    if (wasPlaced) {
+                        break;
+                    }
+                }
+
+                if (!wasPlaced) {
+                    break;
+                }
+            }
+
+            // Initialize non-spawned cars
+            for (; i < maxCarCount; i++) {
+                ref Car car = ref cars[i];
+                car.Position = Cell.None;
+                car.PositionInCell = 0;
+                car.Speed = 0;
+                car.Size = 0;
+
+                ref CarUi carUi = ref carsUi[i];
+                carUi.Color = r.Next(0, 10);
+            }
+        }
+
+        /// <summary>
+        /// Sorts cars in every traffic lane, so first (leading) car in on index 0
+        /// </summary>
+        /// <param name="cells">Cells</param>
+        /// <param name="cellsToCar">Cells to car</param>
+        /// <param name="cars">Cars</param>
+        /// <param name="distance">Distance between junctions</param>
+        private static void SortCarsInCell(List<CellRef> cells, int[] cellsToCar, Car[] cars, int distance)
+        {
+            CarSortHelperStruct[] sortHelper = new CarSortHelperStruct[distance];
+            for (int i = 0; i < cells.Count; i++) {
+                for (int j = 0; j < distance; j++) {
+                    int idx = i * distance + j;
+                    if (cellsToCar[idx] == Cell.None) {
+                        sortHelper[j].CarIndex = Cell.None;
+                        sortHelper[j].PositionInCell = float.MinValue;
+                    } else {
+                        sortHelper[j].CarIndex = cellsToCar[idx];
+                        sortHelper[j].PositionInCell = cars[cellsToCar[idx]].PositionInCell;
+                    }
+                }
+
+                Array.Sort(sortHelper, (a, b) => b.PositionInCell.CompareTo(a.PositionInCell));
+
+                for (int j = 0; j < distance; j++) {
+                    int idx = i * distance + j;
+                    cellsToCar[idx] = sortHelper[j].CarIndex;
+                }
+            }
         }
 
         /// <summary>
