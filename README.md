@@ -20,27 +20,18 @@
 [![Lines of Code](https://img.shields.io/badge/lines%20of%20code-15k-blue.svg)](https://github.com/deathkiller/traffic-simulation/graphs/code-frequency)
 
 
-The purpose of this thesis is to implement road traffic simulation that uses
-a GPU for computations and compare simulation run time to with reference
-implementation that uses a CPU for computations. The created application allows
-to generate a road network for simulation using model with cellular automaton
-or car following model. Also, it can compute individual steps of the simulation
-using a GPU or a CPU. Simulation state can be monitored using simple
-visualization. The application is written in C# programming language and uses
-.NET Framework. The application is using OpenCL technology and NOpenCL library
-to run computations on a GPU.
+The purpose of this thesis is to implement road traffic simulation that uses a GPU for computations and compare simulation run time to a reference implementation that uses a CPU for computations.
 
+The created application allows generating a road network for simulation using model with cellular automaton or car following model. Also, it can compute individual steps of the simulation using a GPU or a CPU. Simulation state can be monitored using simple visualization.
 
-##
-Tato práce je zabývá implementací simulace silniční dopravy, která pro výpočty
-využívá jednotku GPU, a porovnáním doby běhu výpočtů simulace s referenční
-implementací, která pro výpočty využívá jednotku CPU. Vytvořená aplikace
-umožňuje vygenerovat silniční síť pro simulaci s využitím modelu s celulárním
-automatem nebo car following modelu a následně počítat jednotlivé kroky
-simulace s pomocí GPU nebo CPU. Stav simulace je možné sledovat pomocí
-jednoduché vizualizace. Aplikace je napsaná v jazyce C# a využívá technologii
-.NET Framework. Pro spouštění výpočtu na jednotce GPU se využívá technologie
-OpenCL a knihovna NOpenCL.
+The application is written in C# programming language and uses .NET Framework. The application is using OpenCL technology and NOpenCL library to run computations on a GPU.
+
+#### In Czech
+Tato práce se zabývá implementací simulace silniční dopravy, která pro výpočty využívá jednotku GPU, a porovnáním doby běhu výpočtů simulace s referenční implementací, která pro výpočty využívá jednotku CPU.
+
+Vytvořená aplikace umožňuje vygenerovat silniční síť pro simulaci s využitím modelu s celulárním automatem nebo car following modelu a následně počítat jednotlivé kroky simulace s pomocí jednotky GPU nebo CPU. Stav simulace je možné sledovat pomocí jednoduché vizualizace.
+
+Aplikace je napsaná v jazyce C# a využívá technologii .NET Framework. Pro spouštění výpočtu na jednotce GPU se využívá technologie OpenCL a knihovna NOpenCL.
 
 
 ## License
