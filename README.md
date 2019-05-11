@@ -26,7 +26,7 @@ The created application allows generating a road network for simulation using mo
 
 The application is written in C# programming language and uses .NET Framework. The application is using OpenCL technology and NOpenCL library to run computations on a GPU.
 
-#### In Czech
+#### *In Czech*
 Tato práce se zabývá implementací simulace silniční dopravy, která pro výpočty využívá jednotku GPU, a porovnáním doby běhu výpočtů simulace s referenční implementací, která pro výpočty využívá jednotku CPU.
 
 Vytvořená aplikace umožňuje vygenerovat silniční síť pro simulaci s využitím modelu s celulárním automatem nebo car following modelu a následně počítat jednotlivé kroky simulace s pomocí jednotky GPU nebo CPU. Stav simulace je možné sledovat pomocí jednoduché vizualizace.
