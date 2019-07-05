@@ -13,7 +13,7 @@
 </div>
 <hr/>
 
-[![Build Status](https://img.shields.io/appveyor/ci/deathkiller/traffic-simulation.svg?logo=visual-studio-code&logoColor=ffffff)](https://ci.appveyor.com/project/deathkiller/traffic-simulation)
+[![Build Status](https://img.shields.io/appveyor/ci/deathkiller/traffic-simulation/master.svg?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTI0IDIuNXYxOUwxOCAyNCAwIDE4LjV2LS41NjFsMTggMS41NDVWMHpNMSAxMy4xMTFMNC4zODUgMTAgMSA2Ljg4OWwxLjQxOC0uODI3TDUuODUzIDguNjUgMTIgM2wzIDEuNDU2djExLjA4OEwxMiAxN2wtNi4xNDctNS42NS0zLjQzNCAyLjU4OXpNNy42NDQgMTBMMTIgMTMuMjgzVjYuNzE3eiI+PC9wYXRoPjwvc3ZnPg==)](https://ci.appveyor.com/project/deathkiller/traffic-simulation)
 [![Tests](https://img.shields.io/appveyor/tests/deathkiller/traffic-simulation.svg?compact_message)](https://ci.appveyor.com/project/deathkiller/traffic-simulation/build/tests)
 [![Code Quality](https://img.shields.io/codacy/grade/374e7485fe0c42d4924fe4a2c151cf3a.svg)](https://www.codacy.com/app/deathkiller/traffic-simulation)
 [![License](https://img.shields.io/github/license/deathkiller/traffic-simulation.svg)](https://github.com/deathkiller/traffic-simulation/blob/master/LICENSE)

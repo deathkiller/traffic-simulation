@@ -100,10 +100,10 @@
             this.cellBasedRadio.Checked = true;
             this.cellBasedRadio.Location = new System.Drawing.Point(32, 37);
             this.cellBasedRadio.Name = "cellBasedRadio";
-            this.cellBasedRadio.Size = new System.Drawing.Size(137, 17);
+            this.cellBasedRadio.Size = new System.Drawing.Size(143, 17);
             this.cellBasedRadio.TabIndex = 4;
             this.cellBasedRadio.TabStop = true;
-            this.cellBasedRadio.Text = "Cellular automata model";
+            this.cellBasedRadio.Text = "Cellular automaton model";
             this.cellBasedRadio.UseVisualStyleBackColor = true;
             // 
             // carFollowingRadio
@@ -144,7 +144,7 @@
             this.distanceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.distanceBox.ThousandsSeparator = true;
             this.distanceBox.Value = new decimal(new int[] {
-            24,
+            60,
             0,
             0,
             0});
@@ -168,7 +168,7 @@
             this.junctionsXBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.junctionsXBox.ThousandsSeparator = true;
             this.junctionsXBox.Value = new decimal(new int[] {
-            50,
+            5,
             0,
             0,
             0});
@@ -192,7 +192,7 @@
             this.junctionsYBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.junctionsYBox.ThousandsSeparator = true;
             this.junctionsYBox.Value = new decimal(new int[] {
-            50,
+            5,
             0,
             0,
             0});
@@ -216,7 +216,7 @@
             this.carsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.carsBox.ThousandsSeparator = true;
             this.carsBox.Value = new decimal(new int[] {
-            12000,
+            2000,
             0,
             0,
             0});
@@ -260,7 +260,7 @@
             this.maxCarsBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.maxCarsBox.ThousandsSeparator = true;
             this.maxCarsBox.Value = new decimal(new int[] {
-            72000,
+            20000,
             0,
             0,
             0});
@@ -282,7 +282,7 @@
             1,
             0,
             0,
-            131072});
+            65536});
             // 
             // label6
             // 
